@@ -92,12 +92,21 @@ Route::group(['middleware' => 'userlogin'], function () {
     Route::middleware(['checkRoleUser:/customer,menu'])->group(function () {
         // Customer
         Route::resource('/admin/customer', \App\Http\Controllers\Admin\CustomerController::class);
-        Route::resource('/admin/suplier', [CustomerController::class, 'suplier']);
         Route::get('/admin/customer/show/', [CustomerController::class, 'show'])->name('customer.getcustomer');
         Route::post('/admin/customer/proses_tambah/', [CustomerController::class, 'proses_tambah'])->name('customer.store');
         Route::post('/admin/customer/proses_ubah/{customer}', [CustomerController::class, 'proses_ubah']);
         Route::post('/admin/customer/proses_hapus/{customer}', [CustomerController::class, 'proses_hapus']);
     });
+
+    Route::middleware(['checkRoleUser:/suplier,menu'])->group(function () {
+        // Customer
+        Route::resource('/admin/suplier', \App\Http\Controllers\Admin\SuplierController::class);
+        Route::get('/admin/customer/show/', [CustomerController::class, 'show'])->name('customer.getcustomer');
+        Route::post('/admin/customer/proses_tambah/', [CustomerController::class, 'proses_tambah'])->name('customer.store');
+        Route::post('/admin/customer/proses_ubah/{customer}', [CustomerController::class, 'proses_ubah']);
+        Route::post('/admin/customer/proses_hapus/{customer}', [CustomerController::class, 'proses_hapus']);
+    });
+   
 
     Route::middleware(['checkRoleUser:/barang-masuk,submenu'])->group(function () {
         // Barang Masuk
